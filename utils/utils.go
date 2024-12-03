@@ -104,3 +104,8 @@ func RemoveFromSlice(slice []int, i int) []int {
 	copy(newSlice[i:], slice[i+1:])
 	return newSlice
 }
+
+func Atoi(i string) int {
+	r, _ := strconv.Atoi(i)
+	return r
+}
