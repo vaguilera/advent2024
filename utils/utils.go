@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"unicode/utf8"
 )
 
 func LoadFile() ([]string, int) {
@@ -108,4 +109,15 @@ func RemoveFromSlice(slice []int, i int) []int {
 func Atoi(i string) int {
 	r, _ := strconv.Atoi(i)
 	return r
+}
+
+func ReverseString(s string) string {
+	size := len(s)
+	buf := make([]byte, size)
+	for start := 0; start < size; {
+		r, n := utf8.DecodeRuneInString(s[start:])
+		start += n
+		utf8.EncodeRune(buf[size-start:], r)
+	}
+	return string(buf)
 }
