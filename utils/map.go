@@ -10,18 +10,18 @@ func NewMap(lines []string) Map {
 	}
 }
 
-func (m *Map) Get(x, y int) byte {
+func (m *Map) Get(x, y int) (byte, bool) {
 	if x < 0 || y < 0 {
-		panic("X or Y less than 0")
+		return 0, false
 	}
-	if y > len(m.M) {
-		panic("Y out of bounds")
+	if y >= len(m.M) {
+		return 0, false
 	}
-	if x > len(m.M[0]) {
-		panic("X out of bounds")
+	if x >= len(m.M[0]) {
+		return 0, false
 	}
 
-	return m.M[y][x]
+	return m.M[y][x], true
 }
 
 func (m *Map) GetXBlock(x, y, c int) string {
@@ -51,5 +51,3 @@ func (m *Map) GetD2Block(x, y, c int) string {
 	}
 	return res
 }
-
-//
