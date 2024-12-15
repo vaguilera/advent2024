@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/vaguilera/advent2024/utils"
 	"math"
+	"os"
 	"strings"
+
+	"github.com/vaguilera/advent2024/utils"
 )
 
 type dupla struct {
@@ -32,11 +34,20 @@ func main() {
 		})
 	}
 	count := 0
+	premios := 0
 	for i := range machines {
-		count += solve(machines[i])
+		res := solve(machines[i])
+		if res != 0 {
+			premios++
+			count += res
+		} else {
+			fmt.Printf("%#v\n", machines[i])
+			os.Exit(0)
+		}
 	}
 
 	fmt.Println(count)
+	fmt.Println(premios)
 }
 
 func getButtonNumbers(s string) (int, int) {
@@ -60,9 +71,7 @@ func solve(m machine) int {
 		if y == math.Trunc(y) {
 			y2 := m.ButtonA.y*x + m.ButtonB.y*y
 			if y2 == m.Prize.y {
-				//fmt.Printf("x: %d y:%d\n", int(x), int(y))
 				results = append(results, dupla{x, y})
-				//return int(x), int(y)
 			}
 		}
 		x++
